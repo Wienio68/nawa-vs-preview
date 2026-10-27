@@ -18,7 +18,9 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-      - run: npm ci --no-audit --no-fund
+      # The existing NAWA preview lockfile predates dependency changes and rejects npm ci.
+      # Do not touch production lockfile in this isolated prototype.
+      - run: npm install --no-save --package-lock=false --no-audit --no-fund
       - name: TypeScript typecheck
         run: npm run typecheck
       - name: NAWA tests
