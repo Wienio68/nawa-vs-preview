@@ -985,6 +985,22 @@
   filter: none;
 }
 
+/*
+ * NAWA-only canon motion: actual approved film can replace the earlier
+ * still without generating a new face or drawing counterfeit 2D eyes.
+ * Keep the existing Living Frame size; sensor/mouth layers come later.
+ */
+.neyra-canon-clip {
+  display: block;
+  width: 100%;
+  max-height: min(28dvh, 14rem);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: contain;
+  object-position: center center;
+  pointer-events: none;
+}
+
 .neyra-layer[data-state="look-at-event"] .neyra-presence {
   transform: translate(-18%, 4%) scale(1.04);
 }
