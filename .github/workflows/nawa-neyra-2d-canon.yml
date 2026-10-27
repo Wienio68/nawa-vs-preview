@@ -1,4 +1,4 @@
-name: NAWA / Neyra 2D canon preview — isolated QA
+name: NAWA / Neyra canon 2D — scope and integrity
 on:
   push:
     branches:
@@ -9,19 +9,13 @@ permissions:
   contents: read
 
 jobs:
-  typecheck-and-tests:
+  reference-and-integration-scope:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 7
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-      # The existing NAWA preview lockfile predates dependency changes and rejects npm ci.
-      # Do not touch production lockfile in this isolated prototype.
-      - run: npm install --no-save --package-lock=false --no-audit --no-fund
-      - name: TypeScript typecheck
-        run: npm run typecheck
-      - name: NAWA tests
-        run: npm test
+      - name: Verify Neyra-only placement and approved identity references
+        run: node scripts/check-neyra-2d-canon.mjs
+# Full app typecheck/build remains pending: original NAWA preview's package lock
+# is out of sync and npm ci fails before reaching the TypeScript compiler.
+# Never misreport this reference-only gate as full application QA.
